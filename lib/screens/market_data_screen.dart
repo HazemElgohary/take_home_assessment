@@ -5,6 +5,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:take_home_assessment/shared/widgets/market_data_item.dart';
 import '../providers/market_data_provider.dart';
 import '../utils/setup_locator.dart';
+import 'market_data_details_screen.dart';
 
 class MarketDataScreen extends StatefulWidget {
   const MarketDataScreen({super.key});
@@ -123,9 +124,16 @@ class _MarketDataScreenState extends State<MarketDataScreen> {
                 itemBuilder: (context, index) {
                   final item = provider.marketData[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: MarketDataListItem(data: item),
+                  return MarketDataListItem(
+                    data: item,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => MarketDataDetailsScreen(item: item),
+                        ),
+                      );
+                    },
                   ).fadeInUp();
                 },
               ),

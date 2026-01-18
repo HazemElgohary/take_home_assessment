@@ -4,12 +4,11 @@ import 'package:take_home_assessment/utils/setup_locator.dart';
 import 'market_data_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-
-  final themeProvider = getIt<ThemeProvider>();
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = getIt<ThemeProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('PulseNow'),

@@ -30,7 +30,7 @@ class PulseNowApp extends StatelessWidget {
         useMaterial3: true,
       ).copyWith(primaryColor: Colors.teal),
       themeMode: themeProvider.themeMode,
-      home: HomeScreen(),
+      home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
