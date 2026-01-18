@@ -22,7 +22,7 @@ class _MarketDataScreenState extends State<MarketDataScreen> {
     // TODO: Load market data when screen initializes
     // Provider.of<MarketDataProvider>(context, listen: false).loadMarketData();
     _provider = getIt<MarketDataProvider>();
-    _provider.loadMarketData();
+    _provider.loadCashedData();
   }
 
   @override

@@ -46,6 +46,17 @@ class MarketDataModel extends Equatable {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'symbol': symbol,
+      'description': description,
+      'price': price,
+      'change24h': change24h,
+      'changePercent24h': changePercent24h,
+      'volume': volume,
+    };
+  }
+
   @override
   List<Object?> get props => [
     symbol,

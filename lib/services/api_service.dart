@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:take_home_assessment/models/market_data_model.dart';
 import 'package:take_home_assessment/utils/exceptions/network_exception.dart';
+import 'package:take_home_assessment/utils/prefs.dart';
+import 'package:take_home_assessment/utils/prefs_keys.dart';
 import '../utils/constants.dart';
 import '../utils/network/http_api_client.dart';
 
@@ -29,8 +31,17 @@ class ApiService {
       throw NetworkException('Failed to load market data: ${res.statusCode}');
     }
     final decodedBody = jsonDecode(res.body) as Map<String, dynamic>;
-    return (decodedBody['data'] as List<dynamic>)
+    final data = (decodedBody['data'] as List<dynamic>)
         .map((e) => MarketDataModel.fromJson(e))
         .toList();
+
+    // Cache data locally
+
+    await Prefs.setString(
+      PrefsKeys.marketDataKey,
+      jsonEncode(data.map((e) => e.toMap()).toList()),
+    );
+
+    return data;
   }
 }

@@ -28,6 +28,9 @@ dependencies:
   # Utilities
   intl: ^0.18.1
 
+  # offline Database
+  shared_preferences: ^2.5.4
+
   # DI
   get_it: ^9.2.0
 
