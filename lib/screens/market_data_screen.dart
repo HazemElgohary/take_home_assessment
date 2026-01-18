@@ -118,6 +118,7 @@ class _MarketDataScreenState extends State<MarketDataScreen> {
             return RefreshIndicator(
               onRefresh: provider.loadMarketData,
               child: ListView.builder(
+                itemExtent: 120,
                 itemCount: provider.marketData.length,
                 itemBuilder: (context, index) {
                   final item = provider.marketData[index];

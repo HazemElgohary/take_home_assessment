@@ -11,7 +11,8 @@ class MarketDataListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final priceColor = data.change24h >= 0
+    final isPositive = data.change24h >= 0;
+    final changeColor = isPositive
         ? const Color(AppConstants.positiveColor)
         : const Color(AppConstants.negativeColor);
     final priceFormatted = NumberFormat.currency(
@@ -42,12 +43,12 @@ class MarketDataListItem extends StatelessWidget {
                     style: TextStyle(fontSize: 12, color: Colors.grey[400]),
                   ),
                   Text(
-                    '${data.change24h.toStringAsFixed(2)} change24h',
-                    style: TextStyle(fontSize: 12, color: Colors.grey[400]),
+                    '${isPositive ? '+' : ''}${data.change24h.toStringAsFixed(2)} change24h',
+                    style: TextStyle(fontSize: 12, color: changeColor),
                   ),
                   Text(
-                    '${data.changePercent24h.toStringAsFixed(2)} changePercent24h',
-                    style: TextStyle(fontSize: 12, color: Colors.grey[400]),
+                    '${isPositive ? '+' : ''}${data.changePercent24h.toStringAsFixed(2)} %',
+                    style: TextStyle(fontSize: 12, color: changeColor),
                   ),
                 ],
               ),
@@ -58,7 +59,7 @@ class MarketDataListItem extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: priceColor,
+                color: changeColor,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
