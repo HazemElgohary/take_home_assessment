@@ -23,6 +23,7 @@ dependencies:
   # UI
   cupertino_icons: ^1.0.6
   shimmer: ^3.0.0
+  animate_do: ^4.2.0
 
   # Utilities
   intl: ^0.18.1

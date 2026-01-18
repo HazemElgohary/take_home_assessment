@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -124,7 +125,7 @@ class _MarketDataScreenState extends State<MarketDataScreen> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: MarketDataListItem(data: item),
-                  );
+                  ).fadeInUp();
                 },
               ),
             );
