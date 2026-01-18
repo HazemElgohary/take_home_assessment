@@ -68,47 +68,67 @@ class _MarketDataScreenState extends State<MarketDataScreen> {
       value: _provider,
       child: Consumer<MarketDataProvider>(
         builder: (context, provider, child) {
-          if (provider.error != null) {
+          if (provider.isLoading) {
+            return ListView(
+              padding: EdgeInsets.all(10),
+              children: List.generate(
+                3,
+                (index) => Shimmer.fromColors(
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.grey.shade100,
+                  child: const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                      child: SizedBox(height: 100, width: double.infinity),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          } else if (provider.error != null) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Error: ${provider.error}'),
+                  const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () => provider.loadMarketData(),
+                    onPressed: provider.loadMarketData,
                     child: const Text('Retry'),
                   ),
                 ],
               ),
             );
-          }
-          return RefreshIndicator(
-            onRefresh: provider.loadMarketData,
-            child: ListView.builder(
-              itemCount: provider.isLoading ? 3 : provider.marketData.length,
-              itemBuilder: (context, index) {
-                if (provider.isLoading) {
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade100,
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Card(
-                        child: SizedBox(height: 100, width: double.infinity),
-                      ),
-                    ),
-                  );
-                } else {
+          } else if (provider.marketData.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('There is no Data yet..'),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: provider.loadMarketData,
+                    child: const Text('Try Again'),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return RefreshIndicator(
+              onRefresh: provider.loadMarketData,
+              child: ListView.builder(
+                itemCount: provider.marketData.length,
+                itemBuilder: (context, index) {
                   final item = provider.marketData[index];
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: MarketDataListItem(data: item),
                   );
-                }
-              },
-            ),
-          );
+                },
+              ),
+            );
+          }
         },
       ),
     );
